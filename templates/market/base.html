@@ -1,0 +1,55 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}HFUT Market{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'market/node_modules/semantic-ui/dist/semantic.min.css' %}" type="text/css" media="all" />
+    </head>
+    <body>
+        <!-- header -->
+        <div class="ui borderless massive stackable main menu">
+            <div class="header item">
+				<i class="shop icon"></i>
+                HFUT Market
+            </div>
+            <div class="ui container">
+				<a class="{% if home %}active{% endif %} item" href="{% url 'market:index' %}">
+                    Home
+                </a>
+				<div class="right menu">
+					{% if user.is_authenticated %}
+					<div class="ui dropdown item">
+						<img class="ui mini avatar image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ user.uinfo.avatar }}">
+						<span>{{ user.username }}</span>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<a class="item" href="{% url 'market:password_change' %}">修改密码</a>
+							<a class="item" href="{% url 'market:logout' %}">注销</a>
+						</div>
+					</div>
+					{% else %}
+					<div class="item">
+						<a class="primary ui button" href="{% url "market:register" %}">注册</a>
+					</div>
+					<div class="item">
+						<a class="ui button" href="{% url "market:login" %}?next={% url 'market:index' %}">登录</a>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+        </div>
+
+        <div class="ui container">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <script src="{% static 'market/node_modules/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'market/node_modules/semantic-ui/dist/semantic.min.js' %}"></script>
+		<script>
+			$('.ui.dropdown').dropdown();
+		</script>
+        {% block extra_js %}
+        {% endblock %}
+    </body>
+</html>

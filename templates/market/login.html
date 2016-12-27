@@ -1,0 +1,39 @@
+{% extends 'market/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="ui middle aligned centered grid">
+    <div class="six wide column">
+        <h2>
+            <div class="content">
+                登录
+            </div>
+        </h2>
+        <form class="ui large form" method="post">
+            {% if form.errors %}
+            <div class="ui negative message">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            <div class="ui stacked segment">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.password }}
+                    </div>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+                <button class="ui fluid large teal submit button" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

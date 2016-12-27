@@ -6,7 +6,7 @@ class Commodity(models.Model):
     # 商品信息
     name = models.CharField(max_length = 50)
     introduction = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to="uploads/commodity")
     available = models.BooleanField(default = True)
     date = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
@@ -38,4 +38,11 @@ class Tag(models.Model):
     name = models.CharField(max_length = 50, unique = True)
     def __str__(self):
         return self.name
+
+class UInfo(models.Model):
+    # 用户信息
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.BigIntegerField(null=True, blank=True)
+    qq = models.BigIntegerField(null=True, blank=True)
+    avatar = models.ImageField(upload_to='uploads/avatar', null=True, blank=True)
 
