@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib import admin
 from . import views
 
 app_name = 'market'
@@ -19,5 +20,6 @@ urlpatterns = [
         auth_views.password_change_done, {
             'template_name': 'market/password_change_done.html'
         }, name='password_change_done'),
+    url(r'^info-modify/$', views.InfoModify, name='info_modify'),
     url(r'^register/$', views.Register, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

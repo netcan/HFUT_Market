@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import ListView
 from django.core.files.storage import FileSystemStorage
 from .models import Commodity, UInfo
-from .forms import RegisterForm
+from .forms import UInfoForm, UserForm
 
 # Create your views here.
 
@@ -22,35 +23,56 @@ class IndexView(ListView):
 
 @csrf_protect
 def Register(request):
+    # 用户注册
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('market:index'))
-    errors = None
     if request.method == 'POST':
-        form = RegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-             if(request.POST['password'] != request.POST['password2']):
-                 errors = "密码不一致"
-             else:
-                 avatar = request.FILES['avatar']
-                 if avatar:
-                    fs = FileSystemStorage(location='uploads/avatar')
-                    avatarName = fs.save(avatar.name, avatar)
-                 u = User(username = request.POST['username'],
-                          email = request.POST['email'])
-                 u.set_password(request.POST['password'])
-                 u.save()
+        uform = UserForm(request.POST, instance=User())
+        uinfo = UInfoForm(request.POST, instance=UInfo())
+        if uform.is_valid() and uinfo.is_valid:
+            avatar = request.FILES['avatar']
+            if avatar:
+                fs = FileSystemStorage(location='uploads/avatar')
+                avatarName = fs.save(avatar.name, avatar)
 
-                 uinfo = UInfo(avatar = 'uploads/avatar' + fs.url(avatarName) if fs else None,
-                               qq = request.POST['qq'] if request.POST['qq'] else None,
-                               phone = request.POST['phone'] if request.POST['phone'] else None,
-                               )
-                 uinfo.user = u
-                 uinfo.save()
-                 return HttpResponseRedirect(reverse('market:login') + '?next=' + reverse('market:index'))
+            u = uform.save(commit=False)
+            u.set_password(u.password)
+            u.save()
+            uinfo = uinfo.save(commit=False)
+            uinfo.user = u
+            uinfo.avatar = 'uploads/avatar' + fs.url(avatarName) if fs else None
+
+            uinfo.save()
+            return HttpResponseRedirect(reverse('market:login') + '?next=' + reverse('market:index'))
     else:
-        form = RegisterForm
+        uform = UserForm(instance=User())
+        uinfo = UInfoForm(instance=UInfo())
 
     return render(request, 'market/register.html', {
-        'form': form,
-        'errors': errors
+        'uform': uform,
+        'uinfo': uinfo,
     })
+
+@csrf_protect
+@login_required(login_url='market:login')
+def InfoModify(request):
+    if request.method == 'POST':
+        form =  UInfoForm(request.POST, instance=request.user.uinfo)
+        if form.is_valid():
+            uinfo = form.save(commit=False)
+            avatar = request.FILES['avatar'] if 'avatar' in request.FILES else None
+            if avatar:
+                fs = FileSystemStorage(location='uploads/avatar')
+                avatarName = fs.save(avatar.name, avatar)
+                uinfo.avatar = 'uploads/avatar' + fs.url(avatarName) if fs else None
+
+            uinfo.save()
+            return HttpResponseRedirect(reverse('market:index'))
+    else:
+        form = UInfoForm(instance=request.user.uinfo)
+
+    return render(request, 'market/info_modify.html', {
+        'form': form,
+    })
+
+

@@ -1,33 +1,26 @@
 from django import forms
+from django.contrib.auth.models import User
+from .models import UInfo
 
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(
-        label = '用户名',
-        max_length = 150,
-    )
-    email = forms.EmailField(
-        label = '邮箱',
-    )
-    password = forms.CharField(
-        label = '密码',
-        widget=forms.PasswordInput
-    )
-    password2 = forms.CharField(
-        label = '确认密码',
-        widget=forms.PasswordInput
-    )
-    phone = forms.IntegerField(
-        required = False,
-        label = '手机号'
-    )
-    qq = forms.IntegerField(
-        required = False,
-        label = 'QQ'
-    )
-    avatar = forms.ImageField(
-        required = False,
-        label = '头像'
-    )
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+        labels = {
+            'username': '用户名',
+            'email': '邮箱',
+            'password': '密码',
+        }
 
+class UInfoForm(forms.ModelForm):
+    pass
+    class Meta:
+        model = UInfo
+        exclude=('user', )
+        labels = {
+            'qq': 'QQ',
+            'phone': '手机号',
+            'avatar': '头像',
+        }
 

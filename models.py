@@ -35,7 +35,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     # 商品标签，多对多
-    name = models.CharField(max_length = 50, unique = True)
+    name = models.CharField(max_length = 50, unique = True, blank=True, null=True)
     def __str__(self):
         return self.name
 

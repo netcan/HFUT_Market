@@ -5,13 +5,13 @@
     <div class="eight wide column">
         <h2>
             <div class="content">
-                用户注册
+                信息修改
             </div>
         </h2>
         <form class="ui large form" method="post" enctype="multipart/form-data">
             <div class="ui stacked segment">
                 {% csrf_token %}
-                {% for field in uform %}
+                {% for field in form %}
                 <div class="field">
                     {{ field.label_tag }}
                     {{ field }}
@@ -22,21 +22,9 @@
                     {% endif %}
                 </div>
                 {% endfor %}
-                {% for field in uinfo %}
-                <div class="field">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                    <div class="ui negative message">
-                        {{ field.errors }}
-                    </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-
                 </div>
                 <input type="hidden" name="next" value="{{ next }}">
-                <button class="ui fluid large teal submit button" type="submit">注册</button>
+                <button class="ui fluid large teal submit button" type="submit">修改</button>
             </div>
         </form>
     </div>
