@@ -5,21 +5,23 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import ListView
-from django.core.files.storage import FileSystemStorage
 from .models import Commodity, UInfo
-from .forms import UInfoForm, UserForm
+from .forms import UInfoForm, UserForm, CommodityForm
 
 # Create your views here.
 
 class IndexView(ListView):
     template_name = 'market/index.html'
-    context_object_name = 'latest_commodites_list'
+    context_object_name = 'commodites_list'
     model = Commodity
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['home'] = True
         return context
+
+    def get_queryset(self):
+        return Commodity.objects.all()
 
 @csrf_protect
 def Register(request):
@@ -28,20 +30,13 @@ def Register(request):
         return HttpResponseRedirect(reverse('market:index'))
     if request.method == 'POST':
         uform = UserForm(request.POST, instance=User())
-        uinfo = UInfoForm(request.POST, instance=UInfo())
+        uinfo = UInfoForm(request.POST, request.FILES, instance=UInfo())
         if uform.is_valid() and uinfo.is_valid:
-            avatar = request.FILES['avatar']
-            if avatar:
-                fs = FileSystemStorage(location='uploads/avatar')
-                avatarName = fs.save(avatar.name, avatar)
-
             u = uform.save(commit=False)
             u.set_password(u.password)
             u.save()
             uinfo = uinfo.save(commit=False)
             uinfo.user = u
-            uinfo.avatar = 'uploads/avatar' + fs.url(avatarName) if fs else None
-
             uinfo.save()
             return HttpResponseRedirect(reverse('market:login') + '?next=' + reverse('market:index'))
     else:
@@ -56,17 +51,11 @@ def Register(request):
 @csrf_protect
 @login_required(login_url='market:login')
 def InfoModify(request):
+    # 修改用户资料
     if request.method == 'POST':
-        form =  UInfoForm(request.POST, instance=request.user.uinfo)
+        form =  UInfoForm(request.POST, request.FILES,instance=request.user.uinfo)
         if form.is_valid():
-            uinfo = form.save(commit=False)
-            avatar = request.FILES['avatar'] if 'avatar' in request.FILES else None
-            if avatar:
-                fs = FileSystemStorage(location='uploads/avatar')
-                avatarName = fs.save(avatar.name, avatar)
-                uinfo.avatar = 'uploads/avatar' + fs.url(avatarName) if fs else None
-
-            uinfo.save()
+            form.save()
             return HttpResponseRedirect(reverse('market:index'))
     else:
         form = UInfoForm(instance=request.user.uinfo)
@@ -76,3 +65,22 @@ def InfoModify(request):
     })
 
 
+@csrf_protect
+@login_required(login_url='market:login')
+def CommodityAdd(request):
+    if request.method == 'POST':
+        form = CommodityForm(request.POST, request.FILES, instance=Commodity())
+        if form.is_valid:
+            commodity =  form.save(commit=False)
+            commodity.user = request.user
+            commodity.save()
+            form.save_m2m()
+            return HttpResponseRedirect(reverse('market:index'))
+    else:
+        form = CommodityForm(initial={
+            'available': True
+        } ,instance = Commodity())
+
+    return render(request, 'market/commodity_add.html', {
+        'form': form,
+    });

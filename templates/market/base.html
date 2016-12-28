@@ -19,12 +19,17 @@
 				<div class="right menu">
 					{% if user.is_authenticated %}
 					<div class="ui dropdown item">
+                        {% if user.uinfo.avatar %}
 						<img class="ui mini avatar image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ user.uinfo.avatar }}">
+                        {% else %}
+                        <img class="ui mini avatar image" src="{% static 'market/images/user.png' %}">
+                        {% endif %}
 						<span>{{ user.username }}</span>
 						<i class="dropdown icon"></i>
 						<div class="menu">
 							<a class="item" href="{% url 'market:password_change' %}">修改密码</a>
 							<a class="item" href="{% url 'market:info_modify' %}">修改资料</a>
+							<a class="item" href="{% url 'market:commodity_add' %}">发布物品</a>
 							<a class="item" href="{% url 'market:logout' %}">注销</a>
 						</div>
 					</div>

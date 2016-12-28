@@ -20,7 +20,9 @@ class Commodity(models.Model):
     )
     tags = models.ManyToManyField(
         "Tag",
-        db_table = "commodity_tag"
+        db_table = "commodity_tag",
+        null = True,
+        blank = True,
     )
 
     def __str__(self):

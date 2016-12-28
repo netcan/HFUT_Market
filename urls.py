@@ -21,5 +21,6 @@ urlpatterns = [
             'template_name': 'market/password_change_done.html'
         }, name='password_change_done'),
     url(r'^info-modify/$', views.InfoModify, name='info_modify'),
+    url(r'^commodity/add$', views.CommodityAdd, name='commodity_add'),
     url(r'^register/$', views.Register, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

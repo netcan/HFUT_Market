@@ -1,0 +1,36 @@
+{% extends "market/base.html" %}
+
+{% block content %}
+<div class="ui middle aligned centered grid">
+    <div class="ten wide column">
+        <h2>
+            <div class="content">
+                发布物品
+            </div>
+        </h2>
+        <form class="ui large form" method="post" enctype="multipart/form-data">
+            <div class="ui stacked segment">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="ui negative message">
+                        {{ field.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+                <button class="ui fluid large teal submit button" type="submit">发布</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
