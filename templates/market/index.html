@@ -13,14 +13,16 @@
                 {% if commodity.user.uinfo.avatar %}
                 <img class="ui avatar image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ commodity.user.uinfo.avatar }}">
                 {% else %}
-                    <img class="ui mini avatar image" src="{% static 'market/images/user.png' %}">
+                <img class="ui mini avatar image" src="{% static 'market/images/user.png' %}">
                 {% endif %}
                 <span>{{ commodity.user.username }}</span>
-                <p> <b>{{ commodity.name }}</b>
+                <p> <b><a href="{% url 'market:commodity_view' commodity.id %}">{{ commodity.name }}</a></b>
                 </p>
             </div>
 
-            <img style="width:265;height:240px;" class="ui centered rounded image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ commodity.image }}">
+            <a href="{% url 'market:commodity_view' commodity.id %}">
+                <img style="width:265;height:240px;" class="ui centered rounded image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ commodity.image }}">
+            </a>
 
             <div class="content">
                 <span class="right floated">

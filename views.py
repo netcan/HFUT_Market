@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Commodity, UInfo
 from .forms import UInfoForm, UserForm, CommodityForm
 
@@ -68,6 +68,7 @@ def InfoModify(request):
 @csrf_protect
 @login_required(login_url='market:login')
 def CommodityAdd(request):
+    # 发布物品
     if request.method == 'POST':
         form = CommodityForm(request.POST, request.FILES, instance=Commodity())
         if form.is_valid:
@@ -84,3 +85,17 @@ def CommodityAdd(request):
     return render(request, 'market/commodity_add.html', {
         'form': form,
     });
+
+class CommodityView(DetailView):
+    # 展示物品
+    model = Commodity
+    context_object_name = 'commodity'
+    template_name = 'market/commodity_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        # 只有自己才可编辑自己的商品
+        if self.request.user.is_authenticated and self.request.user == self.object.user:
+            context['editable'] = True
+        return context
+
