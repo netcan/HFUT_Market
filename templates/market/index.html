@@ -66,6 +66,11 @@
 {% for commodity in commodites_list %}
     <div class="column">
         <div class="ui card">
+            {% if commodity.available == False %}
+            <a class="ui grey right corner label">
+                <i class="hide icon"></i>
+            </a>
+            {% endif %}
             <div class="content">
                 <div class="right floated meta">{{ commodity.date | date:"Y-m-d H:i" }}</div>
                 {% if commodity.user.uinfo.avatar %}
