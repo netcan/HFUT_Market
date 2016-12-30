@@ -1,6 +1,10 @@
 {% extends "market/base.html" %}
 {% load static %}
 
+{% block title %}
+- {{ commodity.name }}
+{% endblock %}
+
 {% block content %}
 <div class="ui padded stacked segment">
     <h1 class="ui huge header">{{ commodity.name }}</h1>

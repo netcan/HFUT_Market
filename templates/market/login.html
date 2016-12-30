@@ -1,6 +1,8 @@
 {% extends 'market/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}
+- 登录
+{% endblock %}
 
 {% block content %}
 <div class="ui middle aligned centered grid">
@@ -39,12 +41,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-	$('.delete_confirm').click(function() {
-		if(confirm('确定要删除？'))
-			$('.delete').submit()
-	})
-</script>
 {% endblock %}
 
 

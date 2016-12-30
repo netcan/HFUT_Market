@@ -1,8 +1,11 @@
 {% extends "market/base.html" %}
 
+{% block title %}
+- {{ action }}
+{% endblock %}
+
 {% block content %}
 <div class="ui middle aligned centered grid">
-
     <div class="ten wide column">
         <h2>
             <div class="content">
@@ -13,25 +16,56 @@
             <div class="ui stacked segment">
                 {% csrf_token %}
                 {% for field in form %}
-                    <div class="field">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {% if field.errors %}
-                        <div class="ui negative message">
-                            {{ field.errors }}
-                        </div>
-                        {% endif %}
+                {% if field.name == 'category' %}
+                    <!--
+                {% endif %}
+                <div class="field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="ui negative message">
+                        {{ field.errors }}
                     </div>
-                {% endfor %}
+                    {% endif %}
                 </div>
-                <input type="hidden" name="next" value="{{ next }}">
-                <button class="ui fluid large teal submit button" type="submit">{{ action }}</button>
+                {% endfor %}
+                    -->
+
+                {# 分类 #}
+                <div class="field">
+                    {{ form.category.label_tag }}
+                    <select class="ui fluid search selection dropdown" id="{{ form.category.id_for_label }}" name="{{ form.category.name }}" required>
+                        {% for x,y in form.category.field.choices %}
+                            <option value="{{ x }}"{% if form.category.value == x %} selected{% endif %}>{{ y }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+                {# 标签 #}
+                <div class="field">
+                    {{ form.tags.label_tag }}
+                    <select class="ui fluid search dropdown commodityTag" id="{{ form.tags.id_for_label }}" name="{{ form.tags.name }}" multiple="multiple">
+                        {% for x,y in form.tags.field.choices %}
+                            <option value="{{ x }}"{% if x in form.tags.value  %} selected{% endif %}>{{ y }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
             </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            <button class="ui fluid large teal submit button" type="submit">{{ action }}</button>
         </form>
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
+<script>
+$('.commodityTag').dropdown({
+    maxSelections: 3,
+});
+</script>
 {% endblock %}
 

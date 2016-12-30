@@ -7,7 +7,7 @@
     </head>
     <body>
         <!-- header -->
-        <div class="ui teal inverted borderless massive stackable main menu">
+        <div class="ui olive inverted borderless massive stackable main menu">
             <div class="header item">
 				<i class="shop icon"></i>
                 HFUT C2C Market
@@ -34,16 +34,16 @@
 						<span>{{ user.username }}</span>
 						<i class="dropdown icon"></i>
 						<div class="menu">
-							<a class="item" href="{% url 'market:password_change' %}">修改密码</a>
-							<a class="item" href="{% url 'market:info_edit' %}">修改资料</a>
-							<a class="item" href="{% url 'market:commodity_add' %}">发布物品</a>
-							<a class="item" href="{% url 'market:index' %}?mypublish">我发布的</a>
-							<a class="item" href="{% url 'market:logout' %}">注销</a>
+                            <a class="item" href="{% url 'market:password_change' %}"><i class="lock icon"></i>修改密码</a>
+                            <a class="item" href="{% url 'market:info_edit' %}"><i class="info icon"></i>修改资料</a>
+                            <a class="item" href="{% url 'market:commodity_add' %}"><i class="send icon"></i>发布物品</a>
+                            <a class="item" href="{% url 'market:index' %}?mypublish"><i class="list icon"></i>我发布的</a>
+                            <a class="item" href="{% url 'market:logout' %}"><i class="sign out icon"></i>注销</a>
 						</div>
 					</div>
 					{% else %}
 					<div class="item">
-						<a class="primary ui button" href="{% url "market:register" %}">注册</a>
+						<a class="ui primary button" href="{% url "market:register" %}">注册</a>
 					</div>
 					<div class="item">
 						<a class="ui button" href="{% url "market:login" %}?next={% url 'market:index' %}">登录</a>
