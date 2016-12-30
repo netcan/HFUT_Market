@@ -2,21 +2,79 @@
 {% load static %}
 
 {% block content %}
+
+<!-- 过滤 -->
+<div class="ui left pointing dropdown teal labeled icon button">
+    <i class="filter icon"></i>
+    <span class="text">
+        {{ selected | default:"过滤..." }}
+        {% if count is not Null %}
+        <i class="ui pink circular label">{{ count }}</i>
+        {% endif %}
+    </span>
+    <div class="menu">
+        <div class="ui search icon input">
+            <i class="search icon"></i>
+            <input type="text" placeholder="搜索...">
+        </div>
+        <div class="divider"></div>
+        <div class="header">
+            <i class="folder icon"></i>
+            分类
+        </div>
+        <div class="scrolling menu">
+            {% for category in categories %}
+            <a class="item" href="{% url 'market:index' %}?category={{ category }}">
+                {{ category }}
+                <i class="ui pink circular label right floated">{{ category.commodity_set.count }}</i>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="header">
+            <i class="tag icon"></i>
+            标签
+        </div>
+        <div class="scrolling menu">
+            {% for tag in tags %}
+            <a class="item" href="{% url 'market:index' %}?tag={{ tag }}">
+                {{ tag }}
+                <i class="ui pink circular label right floated">{{ tag.commodity_set.count }}</i>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="ui fitted hidden divider"></div>
+
+<!-- 物品列表 -->
+{% if message %}
+<div class="ui info message">
+    {{ message }}
+</div>
+{% endif %}
+
+{% if count == 0 %}
+<div class="ui info message">
+    暂无商品。
+</div>
+{% endif %}
+
+
 <div class="ui four column grid">
 {% for commodity in commodites_list %}
-<!-- {{ commodity }} -->
     <div class="column">
         <div class="ui card">
             <div class="content">
-                <div class="right floated meta">{{ commodity.date }}</div>
-
+                <div class="right floated meta">{{ commodity.date | date:"Y-m-d H:i" }}</div>
                 {% if commodity.user.uinfo.avatar %}
                 <img class="ui avatar image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ commodity.user.uinfo.avatar }}">
                 {% else %}
                 <img class="ui mini avatar image" src="{% static 'market/images/user.png' %}">
                 {% endif %}
                 <span>{{ commodity.user.username }}</span>
-                <p> <b><a href="{% url 'market:commodity_view' commodity.id %}">{{ commodity.name }}</a></b>
+                <p> <b><a href="{% url 'market:commodity_view' commodity.id %}">{{ commodity.name | truncatechars:25 }}</a></b>
                 </p>
             </div>
 
@@ -29,13 +87,21 @@
                     <i class="yen icon"></i>
                     {{ commodity.price }}
                 </span>
-                <i class="folder icon"></i>
+                <a  href="{% url 'market:index' %}?category={{ commodity.category }}">
+                    <i class="folder icon"></i>
                     {{ commodity.category }}
+                </a>
 
             </div>
             <div class="extra content">
+                {% if user == commodity.user %}
+                <div class="left floated">
+                    {% include 'market/commodity_opt.html' with commodityId=commodity.id %}
+                </div>
+                {% endif %}
+
                 {% for tag in commodity.tags.all %}
-                <a class="ui mini orange tag label">
+                <a class="ui mini {% cycle 'red' 'blue' 'pink' 'orange' 'purple' 'green' %} tag label" href="{% url 'market:index' %}?tag={{ tag }}">
                     {{ tag }}
                 </a>
                 {% endfor %}
@@ -44,5 +110,27 @@
     </div>
 {% endfor %}
 </div>
+
+<!-- 分页 -->
+<div class="ui centered grid">
+    <div class="ui pagination menu">
+        {% if commodites_list.has_previous %}
+        <a class="item" href="?page={{ commodites_list.previous_page_number }}&{{ parm }}">
+            上一页
+        </a>
+        {% endif %}
+
+        <a class="item">
+            第{{ commodites_list.number }}页，共{{ commodites_list.paginator.num_pages }}页
+        </a>
+
+        {% if commodites_list.has_next %}
+        <a class="item" href="?page={{ commodites_list.next_page_number }}&{{ parm }}">
+            下一页
+        </a>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
 

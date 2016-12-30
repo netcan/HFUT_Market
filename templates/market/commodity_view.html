@@ -5,13 +5,7 @@
 <div class="ui padded stacked segment">
     <h1 class="ui huge header">{{ commodity.name }}</h1>
     {% if editable %}
-    <div class="ui left pointing dropdown icon primary button">
-        <i class="setting icon"></i>
-        <div class="menu">
-            <a class="item"><i class="edit icon"></i>编辑物品</a>
-            <a class="item"><i class="trash icon"></i>删除物品</a>
-        </div>
-    </div>
+		{% include 'market/commodity_opt.html' with commodityId=commodity.id %}
     {% endif %}
 
     <div class="ui two column grid">
@@ -22,15 +16,19 @@
             <table class="ui table">
                 <tbody>
                     <tr>
-                        <td class="four wide column center aligned">发布时间</td><td><i class="calendar icon"></i>{{ commodity.date }}</td>
+                        <td class="four wide column center aligned">发布时间</td><td><i class="calendar icon"></i>{{ commodity.date | date:"Y-m-d H:i" }}</td>
                     </tr>
                     <tr>
-                        <td class="center aligned">分类</td><td><i class="folder icon"></i>{{ commodity.category }}</td>
+                        <td class="center aligned">分类</td>
+						<td> <a  href="{% url 'market:index' %}?category={{ commodity.category }}">
+								<i class="folder icon"></i>{{ commodity.category }}
+							</a> </td>
                     </tr>
                     <tr>
                         <td class="center aligned">标签</td><td><i class="tag icon"></i>
+
                             {% for tag in commodity.tags.all %}
-                            <a class="ui mini orange tag label">
+							<a class="ui mini {% cycle 'red' 'blue' 'pink' 'orange' 'purple' 'green' %} tag label" href="{% url 'market:index' %}?tag={{ tag }}">
                                 {{ tag }}
                             </a>
                             {% endfor %}
@@ -88,12 +86,12 @@
                     <img style="width: 200px" class="ui image" src="{{ request.scheme}}://{{ request.get_host }}{% url 'market:index' %}{{ commodity.image }}">
                 </td>
                 <td class="left aligned">
-                    {{ commodity.introduction }}
+                    {{ commodity.introduction | linebreaks }}
                 </td>
             </tr>
         </tbody>
     </table>
     </p>
-
 </div>
 {% endblock %}
+

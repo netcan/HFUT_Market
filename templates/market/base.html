@@ -2,21 +2,28 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}HFUT Market{% endblock %}</title>
+        <title>HFUT C2C Market {% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'market/node_modules/semantic-ui/dist/semantic.min.css' %}" type="text/css" media="all" />
     </head>
     <body>
         <!-- header -->
-        <div class="ui borderless massive stackable main menu">
+        <div class="ui teal inverted borderless massive stackable main menu">
             <div class="header item">
 				<i class="shop icon"></i>
-                HFUT Market
+                HFUT C2C Market
             </div>
             <div class="ui container">
 				<a class="{% if home %}active{% endif %} item" href="{% url 'market:index' %}">
                     Home
                 </a>
 				<div class="right menu">
+                    <div class="item">
+                        <form class="ui inverted icon input" method="GET">
+                            <input name="search" type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </form>
+                    </div>
+
 					{% if user.is_authenticated %}
 					<div class="ui dropdown item">
                         {% if user.uinfo.avatar %}
@@ -28,8 +35,9 @@
 						<i class="dropdown icon"></i>
 						<div class="menu">
 							<a class="item" href="{% url 'market:password_change' %}">修改密码</a>
-							<a class="item" href="{% url 'market:info_modify' %}">修改资料</a>
+							<a class="item" href="{% url 'market:info_edit' %}">修改资料</a>
 							<a class="item" href="{% url 'market:commodity_add' %}">发布物品</a>
+							<a class="item" href="{% url 'market:index' %}?mypublish">我发布的</a>
 							<a class="item" href="{% url 'market:logout' %}">注销</a>
 						</div>
 					</div>
@@ -54,6 +62,10 @@
         <script src="{% static 'market/node_modules/semantic-ui/dist/semantic.min.js' %}"></script>
 		<script>
 			$('.ui.dropdown').dropdown();
+            $('.delete_confirm').click(function() {
+                if(confirm('确定要删除？'))
+                    $('.delete').submit()
+            })
         </script>
         {% block extra_js %}
         {% endblock %}

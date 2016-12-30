@@ -37,3 +37,14 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+	$('.delete_confirm').click(function() {
+		if(confirm('确定要删除？'))
+			$('.delete').submit()
+	})
+</script>
+{% endblock %}
+
+
