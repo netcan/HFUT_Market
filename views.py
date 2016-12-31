@@ -120,7 +120,7 @@ def CommodityAdd(request):
             commodity.user = request.user
             commodity.save()
             form.save_m2m()
-            return HttpResponseRedirect(reverse('market:mypublish'))
+            return HttpResponseRedirect(reverse('market:index') + '?mypublish')
     else:
         form = CommodityForm(initial={
             'available': True
