@@ -115,12 +115,12 @@ def CommodityAdd(request):
     # 发布物品
     if request.method == 'POST':
         form = CommodityForm(request.POST, request.FILES, instance=Commodity())
-        if form.is_valid:
+        if form.is_valid():
             commodity =  form.save(commit=False)
             commodity.user = request.user
             commodity.save()
             form.save_m2m()
-            return HttpResponseRedirect(reverse('market:index'))
+            return HttpResponseRedirect(reverse('market:mypublish'))
     else:
         form = CommodityForm(initial={
             'available': True
@@ -154,12 +154,11 @@ def CommodityEdit(request, pk):
 
     if(request.method == 'POST'):
         form = CommodityForm(request.POST, request.FILES, instance=commodity)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('market:commodity_view', kwargs={'pk': pk}))
     else:
         form = CommodityForm(instance = commodity)
-
     return render(request, 'market/commodity_add_or_edit.html', {
         'form': form,
         'action': '修改物品',

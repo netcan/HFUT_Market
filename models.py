@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 # Create your models here.
 class Commodity(models.Model):
@@ -9,7 +11,7 @@ class Commodity(models.Model):
     image = models.ImageField(upload_to="uploads/commodity")
     available = models.BooleanField(default = True)
     date = models.DateTimeField(auto_now_add=True)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE

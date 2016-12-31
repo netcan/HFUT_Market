@@ -40,6 +40,12 @@
                         {% endfor %}
                     </select>
 
+                    {% if form.category.errors %}
+                    <div class="ui negative message">
+                        {{ form.category.errors }}
+                    </div>
+                    {% endif %}
+
                 </div>
 
                 {# 标签 #}
@@ -51,6 +57,11 @@
                         {% endfor %}
                     </select>
 
+                    {% if form.tags.errors %}
+                    <div class="ui negative message">
+                        {{ form.tags.errors }}
+                    </div>
+                    {% endif %}
                 </div>
 
             </div>
