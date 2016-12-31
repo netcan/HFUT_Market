@@ -1,11 +1,28 @@
 <div class="ui tiny left pointing dropdown grey icon button">
     <i class="setting icon"></i>
     <div class="menu">
-        <a  style="color:black;" class="item" href="{% url 'market:commodity_edit' commodityId %}"><i class="edit icon"></i>编辑物品</a>
+        <a style="color:black;" class="item" href="{% url 'market:commodity_edit' commodityId %}">
+			<i class="large edit icon"></i>编辑物品
+		</a>
+        <form class="item commodityToggle" method="POST" action="{% url 'market:commodity_edit' commodityId %}">
+            {% csrf_token %}
+			<input type="hidden" name="commodityToggle" value="True">
+			<input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <span type="submit">
+				{% if commodityAvailable %}
+					<i class="large toggle on icon"></i>
+					有效
+				{% else %}
+					<i class="large toggle off icon"></i>
+					无效
+				{% endif %}
+            </span>
+        </form>
+
         <form class="item delete" method="POST" action="{% url 'market:commodity_delete' commodityId %}">
             {% csrf_token %}
             <span  type="submit" class="delete_confirm">
-                <i class="trash icon"></i>
+                <i class="large trash icon"></i>
                 删除物品
             </span>
         </form>

@@ -153,6 +153,11 @@ def CommodityEdit(request, pk):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
     if(request.method == 'POST'):
+        if request.POST.get('commodityToggle'):
+            commodity.available = not commodity.available
+            commodity.save()
+            return HttpResponseRedirect(request.POST.get('next'))
+
         form = CommodityForm(request.POST, request.FILES, instance=commodity)
         if form.is_valid():
             form.save()

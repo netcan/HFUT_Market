@@ -101,7 +101,7 @@
             <div class="extra content">
                 {% if user == commodity.user %}
                 <div class="left floated">
-                    {% include 'market/commodity_opt.html' with commodityId=commodity.id %}
+                    {% include 'market/commodity_opt.html' with commodityId=commodity.id commodityAvailable=commodity.available %}
                 </div>
                 {% endif %}
 

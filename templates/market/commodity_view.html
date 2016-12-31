@@ -9,7 +9,7 @@
 <div class="ui padded stacked segment">
     <h1 class="ui huge header">{{ commodity.name }}</h1>
     {% if editable %}
-		{% include 'market/commodity_opt.html' with commodityId=commodity.id %}
+		{% include 'market/commodity_opt.html' with commodityId=commodity.id commodityAvailable=commodity.available %}
     {% endif %}
 
     <div class="ui two column grid">
@@ -30,7 +30,6 @@
                     </tr>
                     <tr>
                         <td class="center aligned">标签</td><td><i class="tag icon"></i>
-
                             {% for tag in commodity.tags.all %}
 							<a class="ui mini {% cycle 'red' 'blue' 'pink' 'orange' 'purple' 'green' %} tag label" href="{% url 'market:index' %}?tag={{ tag }}">
                                 {{ tag }}
