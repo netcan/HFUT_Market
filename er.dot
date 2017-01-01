@@ -3,18 +3,18 @@ digraph model_graph {
   // Created: 2017-01-01 14:03
   // Cli Options: market auth
 
-  fontname = "Helvetica"
+  fontname = "Monaco"
   fontsize = 8
   splines  = true
 
   node [
-    fontname = "Helvetica"
+    fontname = "Monaco"
     fontsize = 8
     shape = "plaintext"
   ]
 
   edge [
-    fontname = "Helvetica"
+    fontname = "Monaco"
     fontsize = 8
   ]
 
@@ -24,62 +24,62 @@ digraph model_graph {
   market_models_Commodity [label=<
     <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
     <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-    <FONT FACE="Helvetica Bold" COLOR="white">
+    <FONT FACE="Monaco Bold" COLOR="white">
     Commodity
     </FONT></TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">id</FONT>
+    <FONT FACE="Monaco Bold">id</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">AutoField</FONT>
+    <FONT FACE="Monaco Bold">AutoField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">category</FONT>
+    <FONT FACE="Monaco Bold">category</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+    <FONT FACE="Monaco Bold">ForeignKey (id)</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">user</FONT>
+    <FONT FACE="Monaco Bold">user</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">ForeignKey (id)</FONT>
+    <FONT FACE="Monaco Bold">ForeignKey (id)</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">available</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">available</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">BooleanField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">BooleanField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">date</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">date</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">DateTimeField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">DateTimeField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">image</FONT>
+    <FONT FACE="Monaco ">image</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">ImageField</FONT>
+    <FONT FACE="Monaco ">ImageField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">introduction</FONT>
+    <FONT FACE="Monaco ">introduction</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">TextField</FONT>
+    <FONT FACE="Monaco ">TextField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">name</FONT>
+    <FONT FACE="Monaco ">name</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">CharField</FONT>
+    <FONT FACE="Monaco ">CharField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">price</FONT>
+    <FONT FACE="Monaco ">price</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">DecimalField</FONT>
+    <FONT FACE="Monaco ">DecimalField</FONT>
     </TD></TR>
 
     </TABLE>
@@ -88,20 +88,20 @@ digraph model_graph {
   market_models_Category [label=<
     <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
     <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-    <FONT FACE="Helvetica Bold" COLOR="white">
+    <FONT FACE="Monaco Bold" COLOR="white">
     Category
     </FONT></TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">id</FONT>
+    <FONT FACE="Monaco Bold">id</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">AutoField</FONT>
+    <FONT FACE="Monaco Bold">AutoField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">name</FONT>
+    <FONT FACE="Monaco ">name</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">CharField</FONT>
+    <FONT FACE="Monaco ">CharField</FONT>
     </TD></TR>
 
     </TABLE>
@@ -110,20 +110,20 @@ digraph model_graph {
   market_models_Tag [label=<
     <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
     <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-    <FONT FACE="Helvetica Bold" COLOR="white">
+    <FONT FACE="Monaco Bold" COLOR="white">
     Tag
     </FONT></TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">id</FONT>
+    <FONT FACE="Monaco Bold">id</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">AutoField</FONT>
+    <FONT FACE="Monaco Bold">AutoField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica ">name</FONT>
+    <FONT FACE="Monaco ">name</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica ">CharField</FONT>
+    <FONT FACE="Monaco ">CharField</FONT>
     </TD></TR>
 
     </TABLE>
@@ -133,68 +133,68 @@ digraph model_graph {
   django_contrib_auth_models_User [label=<
     <TABLE BGCOLOR="palegoldenrod" BORDER="0" CELLBORDER="0" CELLSPACING="0">
     <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="olivedrab4">
-    <FONT FACE="Helvetica Bold" COLOR="white">
+    <FONT FACE="Monaco Bold" COLOR="white">
     User
     </FONT></TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Bold">id</FONT>
+    <FONT FACE="Monaco Bold">id</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Bold">AutoField</FONT>
+    <FONT FACE="Monaco Bold">AutoField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Italic">username</FONT>
+    <FONT FACE="Monaco ">username</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Italic">CharField</FONT>
+    <FONT FACE="Monaco ">CharField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Italic">password</FONT>
+    <FONT FACE="Monaco ">password</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Italic">CharField</FONT>
+    <FONT FACE="Monaco ">CharField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT FACE="Helvetica Italic">date_joined</FONT>
+    <FONT FACE="Monaco ">date_joined</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT FACE="Helvetica Italic">DateTimeField</FONT>
+    <FONT FACE="Monaco ">DateTimeField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">is_active</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">is_active</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">BooleanField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">BooleanField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">is_superuser</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">is_superuser</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">BooleanField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">BooleanField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">avatar</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">avatar</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">ImageField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">ImageField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">email</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">email</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica Italic">EmailField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">EmailField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">phone</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">phone</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">BigIntegerField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">BigIntegerField</FONT>
     </TD></TR>
 
     <TR><TD ALIGN="LEFT" BORDER="0">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">qq</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">qq</FONT>
     </TD><TD ALIGN="LEFT">
-    <FONT COLOR="#7B7B7B" FACE="Helvetica ">BigIntegerField</FONT>
+    <FONT COLOR="#7B7B7B" FACE="Monaco ">BigIntegerField</FONT>
     </TD></TR>
 
     </TABLE>
