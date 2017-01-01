@@ -23,7 +23,6 @@ class Commodity(models.Model):
     tags = models.ManyToManyField(
         "Tag",
         db_table = "commodity_tag",
-        null = True,
         blank = True,
     )
 
@@ -39,14 +38,14 @@ class Category(models.Model):
 
 class Tag(models.Model):
     # 商品标签，多对多
-    name = models.CharField(max_length = 50, unique = True, blank=True, null=True)
+    name = models.CharField(max_length = 50, unique = True)
     def __str__(self):
         return self.name
 
 class UInfo(models.Model):
     # 用户信息
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.BigIntegerField(null=True, blank=True)
-    qq = models.BigIntegerField(null=True, blank=True)
+    phone = models.BigIntegerField(null=True, blank=True, unique=True)
+    qq = models.BigIntegerField(null=True, blank=True, unique=True)
     avatar = models.ImageField(upload_to='uploads/avatar', null=True, blank=True)
 
